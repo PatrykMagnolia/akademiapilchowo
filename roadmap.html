@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan rozwoju - treningi sportowe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0D2B4E;
+      --navy-mid: #185FA5;
+      --blue: #378ADD;
+      --blue-light: #B5D4F4;
+      --blue-pale: #E6F1FB;
+      --slate: #5C6E82;
+      --slate-light: #8FA3B8;
+      --slate-pale: #EDF2F7;
+      --white: #ffffff;
+      --border: rgba(55, 138, 221, 0.18);
+      --border-hover: rgba(55, 138, 221, 0.45);
+      --text-primary: #0D2B4E;
+      --text-secondary: #4A6278;
+      --text-muted: #8FA3B8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F4F8FC;
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      padding-top: 1rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+      margin-bottom: 1.25rem;
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 6vw, 34px);
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      position: relative;
+      padding-left: 52px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 10px;
+      bottom: 40px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--navy) 0%, var(--blue) 40%, var(--blue-light) 80%, transparent 100%);
+    }
+
+    .step {
+      position: relative;
+      margin-bottom: 1.75rem;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .step:nth-child(1) { animation-delay: 0.05s; }
+    .step:nth-child(2) { animation-delay: 0.15s; }
+    .step:nth-child(3) { animation-delay: 0.25s; }
+    .step:nth-child(4) { animation-delay: 0.35s; }
+    .step:nth-child(5) { animation-delay: 0.45s; }
+    .step:nth-child(6) { animation-delay: 0.55s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .node {
+      position: absolute;
+      left: -44px;
+      top: 1rem;
+      width: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .node-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 3px solid #F4F8FC;
+      box-shadow: 0 0 0 2px var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .step:last-child .node-circle {
+      background: var(--blue);
+      box-shadow: 0 0 0 2px var(--blue), 0 0 12px rgba(55,138,221,0.35);
+    }
+
+    .node-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* CARD */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.1rem 1.25rem 1rem;
+      transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+      cursor: default;
+    }
+
+    .card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(24, 95, 165, 0.1);
+    }
+
+    .step:last-child .card {
+      border-color: rgba(55,138,221,0.4);
+    }
+
+    .card-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-bottom: 0.55rem;
+    }
+
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: var(--blue-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step:last-child .card-icon {
+      background: var(--navy);
+    }
+
+    .card-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--navy-mid);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .step:last-child .card-icon svg {
+      stroke: #fff;
+    }
+
+    .card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.35;
+      padding-top: 3px;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 500;
+      background: var(--blue-pale);
+      color: var(--navy-mid);
+      border-radius: 20px;
+      padding: 2px 10px;
+      margin-bottom: 0.55rem;
+    }
+
+    .step:last-child .card-tag {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .card-body {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 0.65rem;
+    }
+
+    .pill {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--slate-pale);
+      border: 1px solid rgba(143,163,184,0.25);
+      border-radius: 20px;
+      padding: 2px 9px;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer p {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1.25rem 0.75rem 3rem; }
+      .timeline { padding-left: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand"><span class="brand-dot"></span>Od zera do akademii sportowej</div>
+      <h1 class="title">Pomysł na budowę<br>sportowej działalności</h1>
+      <p class="subtitle">Plan rozwoju krok po kroku — od filmików na YouTube po pełnoprawną regionalną akademię sportową.</p>
+    </div>
+
+    <div class="timeline">
+
+      <!-- KROK 1 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">1</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+            <div class="card-title">Kanał YouTube — sport, hierarchia, zaradność</div>
+          </div>
+          <span class="card-tag">Etap 1 · Treści wideo</span>
+          <p class="card-body">Materiały wideo skoncentrowane na powrocie do „normalności”. Tematyka obejmująca sport jako wyzwanie, <b>merytokrację</b> (lepsi i słabsi zawodnicy), biologiczną hierarchiczność (wpływ wzrostu i wagi), walkę z siedzącym trybem życia oraz negatywny wpływ „ciałopozytywności”.</p>
+          <div class="pills">
+            <span class="pill">Merytokracja</span>
+            <span class="pill">Otyłość </span>
+            <span class="pill">Siedzący tryb życia</span>
+            <span class="pill">Rozwój dzieci i młodzieży</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 2 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">2</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><path d="M12 7v6l3 3M9 13l-3 3M15 13l3 3"/></svg>
+            </div>
+            <div class="card-title">Treningi personalne</div>
+          </div>
+          <span class="card-tag">Etap 2 · Trening indywidualny</span>
+          <p class="card-body">Indywidualne sesje ukierunkowane na rozwój motoryczny — ogólny lub sprecyzowany. Treningi obejmowałyby korekcję postawy, naukę wzorców ruchowych, wprowadzenie do treningu siłowego oraz standaryzowane testy sprawności fizycznej. Na tle konkurencji wyróżniałby mnie unikalny panel online, gdzie po wpisaniu kodu klienta postępy można śledzić niczym w grze — punkty doświadczenia, rosnące paski statystyk i odblokowywanie osiągnięć, takich jak „100 kg na klatę”.</p>
+          <div class="pills">
+            <span class="pill">Trening motoryczny</span>
+            <span class="pill">Piłka nożna</span>
+            <span class="pill">Postawa ciała</span>
+            <span class="pill">Panel klienta</span>
+            <span class="pill">Trening siłowy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 3 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">3</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="2"/><circle cx="17" cy="7" r="2"/><path d="M5 21v-2a4 4 0 0 1 4-4h2"/><path d="M13 21v-2a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4v2"/></svg>
+            </div>
+            <div class="card-title">Zajęcia grupowe z zespołem trenerów</div>
+          </div>
+          <span class="card-tag">Etap 3 · Trening grupowy</span>
+          <p class="card-body">Rozszerzenie działalności poprzez formaty grupowe prowadzone przez zespół trenerów. Do działalności chętnie dołączą Wiktoria i Andrzej, którzy są przez całe życie związani ze sportem i dodatkowo są absolwentami Uniwersytetu Szczecińskiego na kierunku wychowanie fizyczne. Ustrukturyzowany trening dla większych grup z zachowaniem jakości i indywidualnego podejścia — ten rodzaj zajęć jest przede wszystkim atrakcyjny dla kobiet.</p>
+          <div class="pills">
+            <span class="pill">Wiktoria</span>
+            <span class="pill">Andrzej</span>
+            <span class="pill">Patryk</span>
+            <span class="pill">Trening grupowy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 4 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">4</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="card-title">Półkolonie w Pilchowie</div>
+          </div>
+          <span class="card-tag">Etap 4 · Społeczność lokalna</span>
+          <p class="card-body">Programy półkolonijne wykorzystujące istniejącą infrastrukturę w Pilchowie — boisko do piłki nożnej, koszykówki i tenisa, miejsce na grilla oraz plac zabaw — realizowane we współpracy z lokalnym sołtysem.</p>
+          <div class="pills">
+            <span class="pill">Boisko piłkarskie</span>
+            <span class="pill">Koszykówka</span>
+            <span class="pill">Tenis</span>
+            <span class="pill">Grill i plac zabaw</span>
+            <span class="pill">Współpraca lokalna</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 5 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">5</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M3 17l4-8 4 4 4-6 4 10"/><path d="M3 21h18"/></svg>
+            </div>
+            <div class="card-title">Obozy sportowe — krajowe i zagraniczne</div>
+          </div>
+          <span class="card-tag">Etap 5 · Obozy</span>
+          <p class="card-body">W pełni organizowane wielodniowe obozy sportowe, prowadzone przez absolwentów wychowania fizycznego, pełniących rolę wykwalifikowanych wychowawców. Zarówno krajowe, jak i zagraniczne destynacje.</p>
+          <div class="pills">
+            <span class="pill">Polskie góry</span>
+            <span class="pill">Morze Bałtyckie</span>
+            <span class="pill">Wychowawcy</span>
+            <span class="pill">Obozy zagraniczne</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KROK 6 -->
+      <div class="step">
+        <div class="node"><div class="node-circle"><span class="node-num">6</span></div></div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div class="card-title">Klub i akademia sportowa</div>
+          </div>
+          <span class="card-tag">Etap 6 · Akademia</span>
+          <p class="card-body">Cel: stworzenie konkurencyjnej akademii sportowej obsługującej region jeziora Głębokiego i okolicznych miejscowości sołectwa, tj. Pilchowo, Bartoszewo, Leśno Górne, Sławoszewo. W okolicy jest mała, nowo powstała akademia Zieloni Pilchowo, akademia Wołczkowo-Bezrzecze, KP Chemik Police, ale na ich tle wyróżnimy się wysoką jakością komunikacji w mediach społecznościowych.</p>
+          <div class="pills">
+            <span class="pill">Akademia sportowa</span>
+            <span class="pill">Współpraca</span>
+            <span class="pill">Lokalna społeczność</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <p class="footer-title">Wizja na rok 2027</p>
+      <p>Nowy cel, nowe wyzwania, nowy etap życia,<br>jeśli nie teraz, to kiedy?</p>
+    </div>
+  </div>
+</body>
+</html>
